@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>SHOP KEY VGIAU</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:#0f0f0f;
+    color:#fff;
+}
+
+/* INTRO */
+#intro{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:linear-gradient(-45deg,#ff0000,#ff7300,#ffee00,#00ff88,#00c3ff,#a200ff);
+background-size:400% 400%;
+animation:bg 6s infinite;
+}
+@keyframes bg{
+0%{background-position:0%}
+50%{background-position:100%}
+100%{background-position:0%}
+}
+
+button{
+padding:10px 15px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+background:#ff4d6d;
+color:#fff;
+margin-top:10px;
+}
+
+.hidden{display:none}
+
+input{
+padding:10px;
+margin:5px;
+border-radius:8px;
+border:none;
+}
+
+/* SHOP */
+.card{
+background:#1a1a1a;
+padding:15px;
+margin:10px;
+border-radius:15px;
+box-shadow:0 0 10px rgba(255,0,100,0.5);
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<div id="intro">
+<h1>🔥 CHÀO MỪNG ĐẾN SHOP VGIAU 🔥</h1>
+<p>Key VIP - Giá rẻ - Uy tín</p>
+<button onclick="skipIntro()">Bỏ qua</button>
+</div>
+
+<!-- LOGIN -->
+<div id="login" class="hidden" style="text-align:center;margin-top:100px">
+<h2>🔐 Đăng nhập</h2>
+<input id="user" placeholder="Tài khoản"><br>
+<input id="pass" type="password" placeholder="Mật khẩu"><br>
+<button onclick="login()">Đăng nhập</button>
+</div>
+
+<!-- SHOP -->
+<div id="shop" class="hidden" style="padding:20px">
+<h2>🛒 SẢN PHẨM</h2>
+
+<div id="products"></div>
+
+<!-- Nạp tiền -->
+<div class="card">
+<h3>💰 Nạp tiền</h3>
+<img src="https://img.vietqr.io/image/970422-0355998600-compact2.png?addInfo=NAPTIEN&accountName=DO+VAN+GIAO" width="200">
+<p>Chuyển khoản xong bấm xác nhận</p>
+<button onclick="napTien()">Đã chuyển</button>
+</div>
+
+<h3>📜 Lịch sử giao dịch</h3>
+<ul id="history"></ul>
+
+<p>📞 Liên hệ: <a href="https://facebook.com" target="_blank">Facebook Admin</a></p>
+<p>💖 Cảm ơn đã sử dụng - Admin: Bang</p>
+</div>
+
+<script>
+
+// sản phẩm
+let products=[
+{name:'KEY DRIP ',d1:10,d7:50,d15:90,d30:150},
+{name:'KEY PATO ',d1:20,d7:70,d15:120,d30:200},
+{name:'KEY FLU  ',d1:15,d7:60,d15:100,d30:170},
+{name:'KEY BR   ',d1:25,d7:80,d15:130,d30:220},
+{name:'KEY XTFF ',d1:30,d7:90,d15:150,d30:250},
+{name:'KEY STRICKS',d1:35,d7:100,d15:170,d30:300}
+];
+
+let history=[];
+
+// intro
+function skipIntro(){
+document.getElementById("intro").style.display="none";
+document.getElementById("login").classList.remove("hidden");
+}
+
+// login
+function login(){
+document.getElementById("login").classList.add("hidden");
+document.getElementById("shop").classList.remove("hidden");
+renderSP();
+}
+
+// render sản phẩm
+function renderSP(){
+let div=document.getElementById("products");
+div.innerHTML='';
+
+products.forEach(sp=>{
+div.innerHTML+=`
+<div class="card">
+<b>${sp.name}</b><br>
+1 ngày: ${sp.d1}k | 7 ngày: ${sp.d7}k | 15 ngày: ${sp.d15}k | 30 ngày: ${sp.d30}k<br>
+<button onclick="mua('${sp.name}')">Mua</button>
+</div>`;
+});
+}
+
+// mua
+function mua(sp){
+let time=new Date().toLocaleString();
+history.push(`✔️ Mua ${sp} - ${time}`);
+renderHistory();
+alert("Thanh toán thành công!");
+}
+
+// lịch sử
+function renderHistory(){
+let h=document.getElementById("history");
+h.innerHTML='';
+history.forEach(i=>h.innerHTML+=`<li>${i}</li>`);
+}
+
+// nạp tiền
+function napTien(){
+let time=new Date().toLocaleString();
+history.push(`💰 Nạp tiền (chờ xác nhận) - ${time}`);
+renderHistory();
+alert("Đã gửi yêu cầu nạp!");
+}
+
+</script>
+
+</body>
+</html>
